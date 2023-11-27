@@ -7,23 +7,23 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-2019
+    runs-on: windows-2022
     env:
-      RUNNER_VERSION: 2.291.1
+      RUNNER_VERSION: 2.311.0
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the Dockerfile
-        run: docker build -t ghcr.io/antgrutta/winrunner:${{ github.ref_name }} --build-arg RUNNER_VERSION=${{env.RUNNER_VERSION}} .
+        run: docker build -t ghcr.io/andreasfedermannkm/winrunner:${{ github.ref_name }} --build-arg RUNNER_VERSION=${{env.RUNNER_VERSION}} .
 
       - name: Push to GitHub Container Registry
-        run: docker push ghcr.io/antgrutta/winrunner:${{ github.ref_name }}
+        run: docker push ghcr.io/andreasfedermannkm/winrunner:${{ github.ref_name }}
