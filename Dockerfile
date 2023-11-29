@@ -17,7 +17,7 @@ RUN Invoke-WebRequest -Uri 'https://aka.ms/install-powershell.ps1' -OutFile inst
 RUN [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 # Install tools
-RUN choco install git python
+RUN choco install git python -y
 
 # Install GitHub Runner
 RUN Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v$env:RUNNER_VERSION/actions-runner-win-x64-$env:RUNNER_VERSION.zip -OutFile runner.zip
